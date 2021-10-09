@@ -1,4 +1,4 @@
-package com.jochoa.market.domain.web.controller;
+package com.jochoa.market.web.controller;
 
 import com.jochoa.market.domain.Purchase;
 import com.jochoa.market.domain.service.PurchaseService;
