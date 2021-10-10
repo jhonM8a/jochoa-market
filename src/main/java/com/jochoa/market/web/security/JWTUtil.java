@@ -1,5 +1,6 @@
 package com.jochoa.market.web.security;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,5 +15,19 @@ public class JWTUtil {
                 .setExpiration(new Date(System.currentTimeMillis()+1000 *60*60*10)) //Dura 10 horas
                 .signWith(SignatureAlgorithm.HS256, KEY) //Firma
                 .compact();
+    }
+    public boolean validateToken(String token, UserDetails userDetails){
+        return userDetails.getUsername().equals(extractUserName(token)) && !isTokenExpired(token);
+    }
+
+    public  String extractUserName(String token){
+        return getClaims(token).getSubject();
+    }
+
+    public boolean isTokenExpired(String token){
+        return getClaims(token).getExpiration().before( new Date());
+    }
+    private Claims getClaims(String token){
+        return Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).getBody(); //Obtiene el cuerpo del JWT
     }
 }
