@@ -1,1 +1,1 @@
-web: java - jar -Dspring.profiles.active=pdn build/lib/jochoa-market-1.0.jar
+web: java - jar -Dspring.profiles.active=pdn build/libs/jochoa-market-1.0.jar
